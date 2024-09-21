@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <context:property-placeholder location="classpath:application.properties"/>
+    <bean id="bean1" class="uz.pdp.springframeworkcore.corexmlconfig.Bean1"/>
+    <bean id="bean2" class="uz.pdp.springframeworkcore.corexmlconfig.Bean2">
+        <constructor-arg name="bean1" ref="bean1"/>
+    </bean>
+    <!--    <bean id="person" class="uz.pdp.springframeworkcore.advancedwiring.Person">-->
+    <!--        <constructor-arg name="fullName" value="Elmurodov Javohir"/>-->
+    <!--        <constructor-arg name="age" value="28"/>-->
+    <!--    </bean>-->
+
+    <!--    <bean id="person" class="uz.pdp.springframeworkcore.advancedwiring.Person">-->
+    <!--        <constructor-arg index="0" value="Norinboyev Abbos"/>-->
+    <!--        <constructor-arg index="1" value="22"/>-->
+    <!--    </bean>-->
+
+    <!--    <bean id="person1" class="uz.pdp.springframeworkcore.advancedwiring.Person">-->
+    <!--        <constructor-arg name="fullName" value="Elmurodov Javohir"/>-->
+    <!--        <constructor-arg name="age" value="28"/>-->
+
+    <!--        <property name="fullName" value="Norinboyev Abbos"/>-->
+    <!--        <property name="age" value="22"/>-->
+    <!--    </bean>-->
+
+    <!--    <bean id="person" class="uz.pdp.springframeworkcore.advancedwiring.Person" c:_0="Norinboyev Abbos" c:_1="22"/>-->
+    <!--    <bean id="person" class="uz.pdp.springframeworkcore.advancedwiring.Person" p:fullName="Norinboyev Abbos" p:age="22"/>-->
+    <bean id="person" class="uz.pdp.springframeworkcore.advancedwiring.Person"
+          factory-method="getInstance"
+          init-method="init"
+          destroy-method="destroy"
+          p:fullName="Jo'rayev Husanboy" p:age="21"
+    >
+        <property name="nickNames">
+            <list>
+                <value>PlaceHolder</value>
+                <value>Robin</value>
+                <value>Ted</value>
+                <value>John</value>
+            </list>
+        </property>
+
+        <property name="nickNamesWithMap">
+            <map>
+                <entry key="1" value="John"/>
+                <entry key="2" value="Robin"/>
+                <entry key="3" value="PlaceHolder"/>
+                <entry key="4" value="Ted"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="baseDAO" class="uz.pdp.springframeworkcore.advancedwiring.BaseDAO"
+          c:url="${spring.datasource.url}"
+          c:user="${spring.datasource.user}"
+          c:password="${spring.datasource.password}"
+          c:database="${spring.datasource.database}"
+          c:schema="${spring.datasource.schema}"
+          c:driver="${spring.datasource.driver}"
+    >
+    </bean>
+
+    <bean id="userService" class="uz.pdp.springframeworkcore.advancedwiring.UserService"/>
+    <bean id="roleService" class="uz.pdp.springframeworkcore.advancedwiring.RoleService"/>
+</beans>
